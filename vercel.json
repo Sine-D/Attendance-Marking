@@ -15,15 +15,40 @@
     ],
     "routes": [
         {
-            "handle": "filesystem"
-        },
-        {
             "src": "/api/(.*)",
             "dest": "/server/index.js"
         },
         {
+            "src": "/static/(.*)",
+            "dest": "/client/static/$1"
+        },
+        {
+            "src": "/images/(.*)",
+            "dest": "/client/images/$1"
+        },
+        {
+            "src": "/favicon.ico",
+            "dest": "/client/favicon.ico"
+        },
+        {
+            "src": "/manifest.json",
+            "dest": "/client/manifest.json"
+        },
+        {
+            "src": "/robots.txt",
+            "dest": "/client/robots.txt"
+        },
+        {
+            "src": "/logo192.png",
+            "dest": "/client/logo192.png"
+        },
+        {
+            "src": "/logo512.png",
+            "dest": "/client/logo512.png"
+        },
+        {
             "src": "/(.*)",
-            "dest": "/index.html"
+            "dest": "/client/index.html"
         }
     ]
 }
