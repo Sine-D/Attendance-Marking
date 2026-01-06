@@ -25,14 +25,7 @@ const Services = () => {
       gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
       description: "Mark employee attendance"
     },
-    {
-      title: "Analytics Dashboard",
-      link: "/analytics",
-      button: "View Analytics",
-      icon: "📊",
-      gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-      description: "View detailed insights"
-    },
+
     {
       title: "View Attendance",
       link: "/attendance",

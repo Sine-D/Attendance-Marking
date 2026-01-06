@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import Attendance from './pages/Attendance/Attendance';
 import MarkPresent from './components/MarkPresent';
 import Reports from './pages/Reports/Reports';
-import Analytics from './pages/Analytics/Analytics';
+
 import AttendanceCalendar from './pages/AttendanceCalendar/AttendanceCalendar';
 import ApplyLeave from './pages/Leave/ApplyLeave';
 
@@ -31,7 +31,7 @@ function App() {
 
           <Route path="/reports" element={<Reports />} />
 
-          <Route path="/analytics" element={<Analytics />} />
+
 
           <Route path="/calendar" element={<AttendanceCalendar />} />
 
