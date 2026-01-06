@@ -8,8 +8,10 @@ import showAlert from '../utils/swal';
 const MarkPresent = () => {
     const [rollNumber, setRollNumber] = useState('');
     const [name, setName] = useState('');
+    const [checkinTime, setCheckinTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }));
     const [isFocusedName, setIsFocusedName] = useState(false);
     const [isFocusedRoll, setIsFocusedRoll] = useState(false);
+    const [isFocusedTime, setIsFocusedTime] = useState(false);
     const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
@@ -22,7 +24,7 @@ const MarkPresent = () => {
                 const response = await api.post('/', {
                     rollNumber,
                     name,
-                    checkin: new Date().toLocaleTimeString(),
+                    checkin: checkinTime,
                     checkout: ""
                 });
                 console.log(response.data);
@@ -117,7 +119,7 @@ const MarkPresent = () => {
                         </div>
 
                         {/* Roll Number Input */}
-                        <div className="mb-8 relative">
+                        <div className="mb-6 relative">
                             <motion.label
                                 className={`absolute left-4 transition-all duration-300 pointer-events-none ${isFocusedRoll || rollNumber
                                     ? 'text-xs -top-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 rounded'
@@ -142,6 +144,36 @@ const MarkPresent = () => {
                                 onChange={(e) => setRollNumber(e.target.value)}
                                 onFocus={() => setIsFocusedRoll(true)}
                                 onBlur={() => setIsFocusedRoll(false)}
+                            />
+                        </div>
+
+                        {/* Check-in Time Input */}
+                        <div className="mb-8 relative">
+                            <motion.label
+                                className={`absolute left-4 transition-all duration-300 pointer-events-none ${isFocusedTime || checkinTime
+                                    ? 'text-xs -top-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 rounded'
+                                    : 'text-base top-3 text-gray-400'
+                                    }`}
+                                htmlFor="checkinTime"
+                            >
+                                Check-in Time
+                            </motion.label>
+                            <input
+                                className="w-full py-3 px-4 rounded-lg text-white transition-all duration-300 focus:outline-none"
+                                style={{
+                                    background: 'rgba(255, 255, 255, 0.05)',
+                                    border: isFocusedTime
+                                        ? '2px solid #667eea'
+                                        : '1px solid rgba(255, 255, 255, 0.1)',
+                                    boxShadow: isFocusedTime ? '0 0 20px rgba(102, 126, 234, 0.3)' : 'none',
+                                }}
+                                id="checkinTime"
+                                type="text"
+                                value={checkinTime}
+                                onChange={(e) => setCheckinTime(e.target.value)}
+                                onFocus={() => setIsFocusedTime(true)}
+                                onBlur={() => setIsFocusedTime(false)}
+                                placeholder="e.g., 09:00 AM"
                             />
                         </div>
 
