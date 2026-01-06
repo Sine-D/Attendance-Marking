@@ -1,22 +1,6 @@
 import Swal from 'sweetalert2';
 
-const Toast = Swal.mixin({
-    toast: false,
-    position: 'center',
-    showConfirmButton: true,
-    timer: 3000,
-    timerProgressBar: true,
-    background: '#111827',
-    color: '#fff',
-    customClass: {
-        popup: 'glass-swal',
-        confirmButton: 'swal-confirm-btn',
-    },
-    didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer);
-        toast.addEventListener('mouseleave', Swal.resumeTimer);
-    }
-});
+
 
 export const showAlert = (title, text, icon = 'success') => {
     Swal.fire({
