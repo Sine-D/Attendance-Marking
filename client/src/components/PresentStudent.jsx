@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
 import api from '../api/axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { setStudents } from '../store';
 import { motion } from 'framer-motion';
-import AlertComponent from "./AlertComponent";
+import showAlert from '../utils/swal';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
@@ -40,19 +39,19 @@ const PresentStudent = () => {
 
     const handleCheckout = async (id, name) => {
         if (!manualTime) {
-            toast.error("Please enter a checkout time");
+            showAlert("Required", "Please enter a checkout time", "warning");
             return;
         }
         try {
             await api.put(`/${id}`, {
                 checkout: manualTime
             });
-            toast.success(`${name} checked-out successfully!`);
+            showAlert("Success", `${name} checked-out successfully!`, "success");
             setEditingId(null);
             setManualTime("");
             getStudent();
         } catch (error) {
-            toast.error(error.message);
+            showAlert("Error", error.message, "error");
             console.log(error);
         }
     };
@@ -82,7 +81,7 @@ const PresentStudent = () => {
         });
 
         doc.save("attendance_report.pdf");
-        toast.success("PDF exported successfully!");
+        showAlert("Exported", "PDF exported successfully!", "success");
     };
 
     const containerVariants = {
@@ -108,7 +107,6 @@ const PresentStudent = () => {
 
     return (
         <>
-            <AlertComponent />
             <div className='w-full pt-24 pb-12 px-4 min-h-screen'>
                 {/* Header */}
                 <motion.div

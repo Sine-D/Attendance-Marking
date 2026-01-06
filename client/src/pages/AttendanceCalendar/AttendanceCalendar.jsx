@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../../api/axios';
 import { format } from 'date-fns';
-import { toast } from 'react-hot-toast';
+import showAlert from '../../utils/swal';
 import './AttendanceCalendar.css'; // We will create this for custom styling
 
 const AttendanceCalendar = () => {
@@ -46,7 +46,7 @@ const AttendanceCalendar = () => {
             setAttendanceData(grouped);
         } catch (error) {
             console.error("Error fetching attendance:", error);
-            toast.error("Failed to load attendance data");
+            showAlert("Error", "Failed to load attendance data", "error");
         } finally {
             setLoading(false);
         }

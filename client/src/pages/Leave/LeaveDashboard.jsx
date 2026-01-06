@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { toast } from 'react-hot-toast';
+import showAlert from '../../utils/swal';
 import axios from 'axios';
 
 const LeaveDashboard = () => {
@@ -22,10 +22,10 @@ const LeaveDashboard = () => {
     const updateStatus = async (id, status) => {
         try {
             await axios.put(`http://localhost:5000/api/leaves/${id}`, { status });
-            toast.success(`Leave request ${status.toLowerCase()}!`);
+            showAlert("Success", `Leave request ${status.toLowerCase()}!`, "success");
             fetchLeaves();
         } catch (error) {
-            toast.error('Failed to update status.');
+            showAlert("Error", "Failed to update status.", "error");
         }
     };
 

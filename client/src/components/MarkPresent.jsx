@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { motion } from 'framer-motion';
 import api from '../api/axios';
-import { setStudents, setAlertBox } from '../store';
-import AlertComponent from './AlertComponent';
+import { setStudents } from '../store';
+import showAlert from '../utils/swal';
 
 const MarkPresent = () => {
     const [rollNumber, setRollNumber] = useState('');
@@ -15,7 +15,7 @@ const MarkPresent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (name === "" || rollNumber === "") {
-            dispatch(setAlertBox({ title: "Empty Fields", message: "All the Fields are required!", color: "orange", show: true }));
+            showAlert("Empty Fields", "All the Fields are required!", "warning");
         } else {
             try {
                 // Add student to MongoDB
@@ -38,9 +38,9 @@ const MarkPresent = () => {
                 }));
 
                 dispatch(setStudents(studentData));
-                dispatch(setAlertBox({ title: "Attendance Marked", message: `${name}'s Attendance is Marked`, color: "teal", show: true }));
+                showAlert("Attendance Marked", `${name}'s Attendance is Marked`, "success");
             } catch (error) {
-                dispatch(setAlertBox({ title: "Error!", message: error.message, color: "red", show: true }));
+                showAlert("Error!", error.message, "error");
                 console.log(error);
             }
         }
@@ -48,7 +48,6 @@ const MarkPresent = () => {
 
     return (
         <>
-            <AlertComponent></AlertComponent>
             <div className="flex justify-center min-h-screen items-center flex-wrap px-4 pt-20">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}

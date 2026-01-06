@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { toast } from 'react-hot-toast';
+import showAlert from '../../utils/swal';
 import axios from 'axios';
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
@@ -31,7 +31,7 @@ const ApplyLeave = () => {
             setLeaves(response.data);
         } catch (error) {
             console.error(error);
-            toast.error('Failed to fetch leave records');
+            showAlert('Error', 'Failed to fetch leave records', 'error');
         }
     }, [lastActionTime]);
 
@@ -62,12 +62,12 @@ const ApplyLeave = () => {
                 ));
 
                 setLastActionTime(Date.now());
-                toast.success('Leave updated successfully!');
+                showAlert('Success', 'Leave updated successfully!', 'success');
                 setEditingId(null);
             } else {
                 // Create new leave
                 await axios.post('http://localhost:5000/api/leaves', formData);
-                toast.success('Leave application submitted successfully!');
+                showAlert('Success', 'Leave application submitted successfully!', 'success');
             }
 
             // Reset form
@@ -83,7 +83,7 @@ const ApplyLeave = () => {
             setActiveTab('manage');
 
         } catch (error) {
-            toast.error(editingId ? 'Failed to update leave.' : 'Failed to submit leave application.');
+            showAlert('Error', editingId ? 'Failed to update leave.' : 'Failed to submit leave application.', 'error');
             console.error(error);
         }
     };
@@ -91,10 +91,10 @@ const ApplyLeave = () => {
     const handleUpdateStatus = async (id, status) => {
         try {
             await axios.put(`http://localhost:5000/api/leaves/${id}`, { status });
-            toast.success(`Leave ${status} successfully`);
+            showAlert('Success', `Leave ${status} successfully`, 'success');
             fetchLeaves(); // Refresh list immediately
         } catch (error) {
-            toast.error(`Failed to ${status} leave`);
+            showAlert('Error', `Failed to ${status} leave`, 'error');
             console.error(error);
         }
     };
